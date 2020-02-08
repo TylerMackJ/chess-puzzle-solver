@@ -11,7 +11,7 @@ public class Piece {
     public Type type;
     public Color color;
 
-    Piece(Type type, Color color) {
+    public Piece(Type type, Color color) {
         this.type = type;
         this.color = color;
     }
