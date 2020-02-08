@@ -8,7 +8,7 @@ public class Board {
     }
 
     public Board() {
-        board = new Piece[10][10];
+        board = new Piece[8][8];
 
         for(int x = 0; x < board[0].length; x++) {
             for(int y = 0; y < board.length; y++) {
