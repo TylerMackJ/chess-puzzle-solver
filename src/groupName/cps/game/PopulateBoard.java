@@ -3,16 +3,16 @@ import groupName.cps.game.*;
 import groupName.cps.game.Piece;
 
 public class PopulateBoard {
-    public Board board;
+    public Piece[][] board;
     public String pieceLocations;
 
 
-    public PopulateBoard(Board board, String pieceLocations) {
+    public PopulateBoard(Piece[][] board, String pieceLocations) {
         this.board = board;
         this.pieceLocations = pieceLocations;
     }
 
-    public Board getPopulatedBoard() {
+    public Piece[][] getPopulatedBoard() {
         // Separate the pieceLocations String into a String array
         String[] locationArray = this.pieceLocations.split(" ");
         Piece.Color currentColor = null;
@@ -59,14 +59,10 @@ public class PopulateBoard {
             currentY =  Integer.parseInt(String.valueOf(currentCharacters[3]));
 
             // Place the piece in the desired location on the board
-            this.board.board[currentX][currentY] = currentPiece;
+            this.board[currentX][currentY] = currentPiece;
         }
 
         return this.board;
-    }
-
-    public static void bullShit() {
-        Piece myPiece = new Piece(Piece.Type.KING, Piece.Color.WHITE);
     }
 }
 
