@@ -1,14 +1,18 @@
 package groupName.cps.game;
-import groupName.cps.game.*;
-import groupName.cps.game.Piece;
 
 public class PopulateBoard {
     public Piece[][] board;
     public String pieceLocations;
 
 
-    public PopulateBoard(Piece[][] board, String pieceLocations) {
-        this.board = board;
+    public PopulateBoard(String pieceLocations) {
+        this.board = new Piece[8][8];
+        for(int x = 0; x < board[0].length; x++) {
+            for(int y = 0; y < board.length; y++) {
+                board[y][x] = null;
+            }
+        }
+
         this.pieceLocations = pieceLocations;
     }
 
