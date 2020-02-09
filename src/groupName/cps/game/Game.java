@@ -1,5 +1,7 @@
 package groupName.cps.game;
 
+import java.util.Arrays;
+
 public class Game {
     public Piece[][] board;
     public State state;
@@ -14,6 +16,12 @@ public class Game {
         this.state = new State(check, color);
     }
 
+    public Game(Piece[][] clone) {
+        this.board = clone.clone();
+        this.state = new State();
+    }
+
+
     public Game() {
         this.board = new Piece[8][8];
         this.state = new State();
@@ -23,5 +31,19 @@ public class Game {
                 board[y][x] = null;
             }
         }
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder ret = new StringBuilder();
+
+        for(int y = 7; y >= 0; y--){
+            for(int x = 0; x < 8; x++){
+                ret.append(this.board[x][y]).append(" ");
+            }
+            ret.append("\n");
+        }
+
+        return ret.toString();
     }
 }
