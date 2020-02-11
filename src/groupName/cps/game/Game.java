@@ -10,18 +10,18 @@ public class Game {
         this.board = clone.clone();
         this.state = state;
     }
-
+    //take a board and creates a game
     public Game(Piece[][] clone, boolean check, Piece.Color color) {
         this.board = clone.clone();
         this.state = new State(check, color);
     }
-
+    //pass it a board and it creates a game with that board and a default state
     public Game(Piece[][] clone) {
         this.board = clone.clone();
         this.state = new State();
     }
 
-
+    //complete empty board and a default state
     public Game() {
         this.board = new Piece[8][8];
         this.state = new State();
@@ -39,7 +39,7 @@ public class Game {
 
         for(int y = 7; y >= 0; y--){
             for(int x = 0; x < 8; x++){
-                ret.append(this.board[x][y]).append(" ");
+                ret.append(this.board[y][x]).append(" ");
             }
             ret.append("\n");
         }
