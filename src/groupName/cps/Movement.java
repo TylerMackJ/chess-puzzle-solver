@@ -165,15 +165,140 @@ public class Movement {
         return moveList;
     }
 
-    private static LinkedList<Move> legalMovesKnight(int x, int y, Game game) {
+    private static LinkedList<Move> legalMovesKnight(int x, int y, Game game) {//DONE
         LinkedList<Move> moveList = new LinkedList<Move>();
+        Piece.Color knightColor = game.board[y][x].color;
 
+        //Forward 2, Right 1
+        if ((inBoundDiag(y+2, x+1)) && (game.board[y+2][x+1] == null)) {
+            moveList.add(new Move(x, y, x+1, y+2));
+        }
+        //kill
+        if ((inBoundDiag(y+2, x+1)) && (game.board[y+2][x+1].color != knightColor)) {
+            moveList.add(new Move(x, y, x+1, y+2));
+        }
+        //Forward 2, Left 1
+        if ((inBoundDiag(y+2, x-1)) && (game.board[y+2][x-1] == null)) {
+            moveList.add(new Move(x, y, x-1, y+2));
+        }
+        //kill
+        if ((inBoundDiag(y+2, x-1)) && (game.board[y+2][x-1].color != knightColor)) {
+            moveList.add(new Move(x, y, x-1, y+2));
+        }
+        //Forward 1, Left 2
+        if ((inBoundDiag(y+1, x-2)) && (game.board[y+1][x-2] == null)) {
+            moveList.add(new Move(x, y, x-2, y+1));
+        }
+        //kill
+        if ((inBoundDiag(y+1, x-2)) && (game.board[y+1][x-2].color != knightColor)) {
+            moveList.add(new Move(x, y, x-2, y+1));
+        }
+        //Forward 1, Right 2
+        if ((inBoundDiag(y+1, x+2)) && (game.board[y+1][x+2] == null)) {
+            moveList.add(new Move(x, y, x+2, y+1));
+        }
+        //kill
+        if ((inBoundDiag(y+1, x+2)) && (game.board[y+1][x+2].color != knightColor)) {
+            moveList.add(new Move(x, y, x+2, y+1));
+        }
+        //Back 2, Right 1
+        if ((inBoundDiag(y-2, x+1)) && (game.board[y-2][x+1] == null)) {
+            moveList.add(new Move(x, y, x+1, y-2));
+        }
+        //kill
+        if ((inBoundDiag(y-2, x+1)) && (game.board[y-2][x+1].color != knightColor)) {
+            moveList.add(new Move(x, y, x+1, y-2));
+        }
+        //Back 2, Left 1
+        if ((inBoundDiag(y-2, x-1)) && (game.board[y-2][x-1] == null)) {
+            moveList.add(new Move(x, y, x-1, y-2));
+        }
+        //kill
+        if ((inBoundDiag(y-2, x-1)) && (game.board[y-2][x-1].color != knightColor)) {
+            moveList.add(new Move(x, y, x-1, y-2));
+        }
+        //Back 1, Left 2
+        if ((inBoundDiag(y-1, x-2)) && (game.board[y-1][x-2] == null)) {
+            moveList.add(new Move(x, y, x-2, y-1));
+        }
+        //kill
+        if ((inBoundDiag(y-1, x-2)) && (game.board[y-1][x-2].color != knightColor)) {
+            moveList.add(new Move(x, y, x-2, y-1));
+        }
+        //Back 1, Right 2
+        if ((inBoundDiag(y-1, x+2)) && (game.board[y-1][x+2] == null)) {
+            moveList.add(new Move(x, y, x+2, y-1));
+        }
+        //kill
+        if ((inBoundDiag(y-1, x+2)) && (game.board[y-1][x+2].color != knightColor)) {
+            moveList.add(new Move(x, y, x+2, y-1));
+        }
         return moveList;
     }
 
     private static LinkedList<Move> legalMovesBishop(int x, int y, Game game) {
         LinkedList<Move> moveList = new LinkedList<Move>();
-
+        Piece.Color bishopColor = game.board[y][x].color;
+        //move diagonal up and to the right
+        for (int lcv=1; lcv<=7; lcv++){
+            if ((game.board[y+lcv][x+lcv] == null) && (inBoundDiag(x+lcv, y+lcv))) {
+                moveList.add(new Move(x, y, x+lcv, y+lcv));
+            } else {
+                break;
+            }
+            //kill
+            if ((game.board[y+lcv][x+lcv] != null) && inBoundDiag(x+lcv, y+lcv)) {
+                if (game.board[y+lcv][x+lcv].color != bishopColor){
+                    moveList.add(new Move(x, y, x+lcv, y+lcv));
+                }
+                break;
+            }
+        }
+        //move diagonal up and to the left
+        for (int lcv=1; lcv<=7; lcv++){
+            if ((game.board[y+lcv][x-lcv] == null) && (inBoundDiag(x-lcv, y+lcv))) {
+                moveList.add(new Move(x, y, x-lcv, y+lcv));
+            } else {
+                break;
+            }
+            //kill
+            if ((game.board[y+lcv][x-lcv] != null) && inBoundDiag(x-lcv, y+lcv)) {
+                if (game.board[y+lcv][x-lcv].color != bishopColor){
+                    moveList.add(new Move(x, y, x-lcv, y+lcv));
+                }
+                break;
+            }
+        }
+        //move diagonal down and to the right
+        for (int lcv=1; lcv<=7; lcv++){
+            if ((game.board[y-lcv][x+lcv] == null) && (inBoundDiag(x+lcv, y-lcv))) {
+                moveList.add(new Move(x, y, x+lcv, y-lcv));
+            } else {
+                break;
+            }
+            //kill
+            if ((game.board[y-lcv][x+lcv] != null) && inBoundDiag(x+lcv, y-lcv)) {
+                if (game.board[y-lcv][x+lcv].color != bishopColor){
+                    moveList.add(new Move(x, y, x+lcv, y-lcv));
+                }
+                break;
+            }
+        }
+        //move diagonal down and to the left
+        for (int lcv=1; lcv<=7; lcv++){
+            if ((game.board[y-lcv][x-lcv] == null) && (inBoundDiag(x-lcv, y-lcv))) {
+                moveList.add(new Move(x, y, x-lcv, y-lcv));
+            } else {
+                break;
+            }
+            //kill
+            if ((game.board[y-lcv][x-lcv] != null) && inBoundDiag(x-lcv, y-lcv)) {
+                if (game.board[y-lcv][x-lcv].color != bishopColor){
+                    moveList.add(new Move(x, y, x-lcv, y-lcv));
+                }
+                break;
+            }
+        }
         return moveList;
     }
 
@@ -182,7 +307,7 @@ public class Movement {
         Piece.Color rookColor = game.board[y][x].color;
 
         //move forward
-        for (int lcv=y; lcv<=7; lcv++){
+        for (int lcv=y; lcv<=6; lcv++){
             if (inBounds(lcv+1) && (game.board[lcv+1][x] == null)) {
                 moveList.add(new Move(x, y, x, lcv+1));
             } else {
@@ -196,7 +321,7 @@ public class Movement {
             }
         }
         //move backward
-        for (int lcv=y; lcv<=7; lcv--){
+        for (int lcv=y; lcv<=6; lcv--){
             if (inBounds(lcv-1) && (game.board[lcv-1][x] == null)){
                 moveList.add(new Move(x, y, x, lcv-1));
             } else {
@@ -210,7 +335,7 @@ public class Movement {
             }
         }
         //move left
-        for (int lcv=x; lcv<=7; lcv--){
+        for (int lcv=x; lcv<=6; lcv--){
             if (inBounds(lcv-1) && (game.board[y][lcv-1] == null)){
                 moveList.add(new Move(x, y, lcv-1, y));
             } else {
@@ -224,7 +349,7 @@ public class Movement {
             }
         }
         //move right
-        for (int lcv=x; lcv<=7; lcv++){
+        for (int lcv=x; lcv<=6; lcv++){
             if (inBounds(lcv+1) && (game.board[y][lcv+1] == null)){
                 moveList.add(new Move(x, y, lcv+1, y));
             } else {
@@ -242,6 +367,14 @@ public class Movement {
     //test a point to determine if inbounds
     private static boolean inBounds(int x){
         if ((x >= 0) && (x <= 7)){
+            return true;
+        }else {
+            return false;
+        }
+    }
+    //test a point to determine if inbounds
+    private static boolean inBoundDiag(int x, int y){
+        if (((x >= 0) && (x <= 7)) && ((y >= 0) && (y <= 7))){
             return true;
         }else {
             return false;
