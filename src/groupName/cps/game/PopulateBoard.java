@@ -63,7 +63,7 @@ public class PopulateBoard {
             currentY =  Integer.parseInt(String.valueOf(currentCharacters[3]));
 
             // Place the piece in the desired location on the board
-            this.board[currentX][currentY] = currentPiece;
+            this.board[currentY][currentX] = currentPiece;
         }
 
         return this.board;

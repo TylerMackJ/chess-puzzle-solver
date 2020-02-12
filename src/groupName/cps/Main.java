@@ -1,12 +1,23 @@
 package groupName.cps;
 import groupName.cps.game.*;
+import groupName.cps.game.Movement.Move;
+import groupName.cps.game.Movement.Movement;
+
+import java.util.Iterator;
+import java.util.LinkedList;
 
 public class Main {
     public static void main(String[] args) {
-        String puzzle = "WP21 WP71 WK70 WP02 BQ22 BP24 WQ34 BP54 BR64 BP15 WR65 BP75 WR06 BP56 BR27 BK77";
-        Piece[][] board = new PopulateBoard(puzzle).getPopulatedBoard();
-        Game game = new Game(board);
+        //(Color, Piece, X, Y
+        String puzzle = "WR20 WK60 WP51 WP12 WP72 WP03 BQ33 WP63 BP04 BP34 BP65 BP56 BP66 BK76 WR17";
+        Game game = new Game(new PopulateBoard(puzzle).getPopulatedBoard());
 
-        System.out.println(game);
+        LinkedList<Move> moveList = Movement.getMoves(game);
+
+        Iterator<Move> moveListI = moveList.iterator();
+
+        while(moveListI.hasNext()) {
+            System.out.println(moveListI.next());
+        }
     }
 }
