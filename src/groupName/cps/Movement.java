@@ -160,8 +160,10 @@ public class Movement {
 
 
     private static LinkedList<Move> legalMovesQueen(int x, int y, Game game) {
+        //Queen moves just like rook and bishop hence why we called those two legal move functions.
         LinkedList<Move> moveList = new LinkedList<Move>();
-        //ADD THE LINKED LIST FROM legalMovesKing() HERE???
+        moveList.add(legalMovesBishop(x,y, game));
+        moveList.add(legalMovesRook(x,y, game));
         return moveList;
     }
 
