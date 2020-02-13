@@ -3,7 +3,11 @@ package groupName.cps.game.Movement;
 import groupName.cps.game.Game;
 import groupName.cps.game.Piece;
 
+import java.util.Iterator;
 import java.util.LinkedList;
+
+import static groupName.cps.game.BruteForce.BruteForce.inCheck;
+import static groupName.cps.game.BruteForce.BruteForce.makeMove;
 
 public class Movement {
     //reading the board and calling legal moves on any white spots by passing the board
@@ -17,6 +21,36 @@ public class Movement {
             for(int x = 0; x < 8; x++){
                 if (game.board[y][x] != null) {
                     if (game.board[y][x].color == game.state.turn){
+                        moveList.addAll(legalMoves(x, y, game));
+                    }
+                }
+            }
+        }
+
+        if(inCheck(game)){
+            LinkedList<Move> checkMoves = new LinkedList<Move>();
+
+            Iterator<Move> movesListI = moveList.iterator();
+
+            while(movesListI.hasNext()){
+                Move currentMove = movesListI.next();
+
+                if (!inCheck(makeMove(game , currentMove))){
+                    checkMoves.add(currentMove);
+                }
+            }
+
+            return checkMoves;
+        }
+        return moveList;
+    }
+
+    public static LinkedList<Move> getMovesCheck(Game game) {
+        LinkedList<Move> moveList = new LinkedList<>();
+        for (int y = 7; y >= 0; y--) {
+            for (int x = 0; x < 8; x++) {
+                if (game.board[y][x] != null) {
+                    if (game.board[y][x].color == game.state.turn) {
                         moveList.addAll(legalMoves(x, y, game));
                     }
                 }
@@ -268,8 +302,8 @@ public class Movement {
             if (game.board[y - 1][x - 2] == null) {
                 moveList.add(new Move(x, y, x - 2, y - 1));
             } else {
-                if(game.board[y - 2][x - 1].color != knightColor) {
-                    moveList.add(new Move(x, y, x - 1, y - 2));
+                if(game.board[y - 1][x - 2].color != knightColor) {
+                    moveList.add(new Move(x, y, x - 2, y - 1));
                 }
             }
         }
