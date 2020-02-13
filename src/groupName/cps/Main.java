@@ -14,8 +14,8 @@ public class Main {
 
         LinkedList<Move> moveList = Movement.getMoves(game);
 
-        Iterator<Move> moveListI = moveList.iterator();
 
+        Iterator<Move> moveListI = moveList.iterator();
         while(moveListI.hasNext()) {
             System.out.println(moveListI.next());
         }
