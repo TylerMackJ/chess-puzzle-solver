@@ -10,9 +10,6 @@ import java.util.LinkedList;
 public class Main {
     public static void main(String[] args) {
         //(Color, Piece, X, Y
-        String puzzle = "BR71 WK25 WQ16 BK37";
-        Game game = new Game(new PopulateBoard(puzzle).getPopulatedBoard());
-
-        BruteForce.whiteTurn(game, 0);
+        BruteForce.solvePuzzle("WK11 BQ50 BR32 WP13 BP14 WP24 WP05 BB25 WP35 BP06 WR76 BK17", 3);
     }
 }

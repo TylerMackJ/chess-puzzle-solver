@@ -1,16 +1,16 @@
 package groupName.cps.game;
 
 public class State {
-    public boolean checkMate;
+    public boolean check;
     public Piece.Color turn;
 
     public State(boolean check, Piece.Color turn) {
-        this.checkMate = check;
+        this.check= check;
         this.turn = turn;
     }
 
     public State() {
-        this.checkMate = false;
+        this.check = false;
         this.turn = Piece.Color.WHITE;
     }
 }
