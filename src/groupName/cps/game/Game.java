@@ -7,17 +7,44 @@ public class Game {
     public State state;
 
     public Game(Piece[][] clone, State state) {
-        this.board = clone.clone();
-        this.state = state;
+        this.board = new Piece[8][8];
+        for(int y = 0; y < 8; y++) {
+            for (int x = 0; x < 8; x++) {
+                if(clone[y][x] == null) {
+                    this.board[y][x] = null;
+                } else {
+                    this.board[y][x] = new Piece(clone[y][x].type, clone[y][x].color);
+                }
+            }
+        }
+        this.state = new State(state.check, state.turn);
     }
     //take a board and creates a game
     public Game(Piece[][] clone, boolean check, Piece.Color color) {
-        this.board = clone.clone();
-        this.state = new State(check, color);
+        this.board = new Piece[8][8];
+        for(int y = 0; y < 8; y++) {
+            for (int x = 0; x < 8; x++) {
+                if(clone[y][x] == null) {
+                    this.board[y][x] = null;
+                } else {
+                    this.board[y][x] = new Piece(clone[y][x].type, clone[y][x].color);
+                }
+            }
+        }
+        this.state = new State(state.check, state.turn);
     }
     //pass it a board and it creates a game with that board and a default state
     public Game(Piece[][] clone) {
-        this.board = clone.clone();
+        this.board = new Piece[8][8];
+        for(int y = 0; y < 8; y++) {
+            for (int x = 0; x < 8; x++) {
+                if(clone[y][x] == null) {
+                    this.board[y][x] = null;
+                } else {
+                    this.board[y][x] = new Piece(clone[y][x].type, clone[y][x].color);
+                }
+            }
+        }
         this.state = new State();
     }
 
@@ -30,6 +57,14 @@ public class Game {
             for(int y = 0; y < board.length; y++) {
                 board[y][x] = null;
             }
+        }
+    }
+
+    public void swapColor() {
+        if(this.state.turn == Piece.Color.WHITE) {
+            this.state.turn = Piece.Color.BLACK;
+        } else {
+            this.state.turn = Piece.Color.WHITE;
         }
     }
 

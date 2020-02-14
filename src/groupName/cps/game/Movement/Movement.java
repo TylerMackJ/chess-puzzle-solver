@@ -6,12 +6,23 @@ import groupName.cps.game.Piece;
 import java.util.LinkedList;
 
 public class Movement {
-    //reading the board and calling legal moves on any white spots by passing the board
-    // and the position of the white piece
-    //legalMovesKing(), legalMovesQueen()...
-    //each should return a sublist of legal moves
 
-    public static LinkedList<Move> getMoves(Game game) {
+    public static boolean check(Game game) {
+        // Find current players king
+        int kingX = -1, kingY = -1;
+        for(int y = 0; y < 8; y++) {
+            for(int x = 0; x < 8; x++) {
+                if(game.board[y][x] != null) {
+                    if(game.board[y][x].type == Piece.Type.KING && game.board[y][x].color == game.state.turn) {
+                        kingX = x;
+                        kingY = y;
+                    }
+                }
+            }
+        }
+
+        // Switch to other players turn and see if they can make a movement onto the current players king.
+        game.swapColor();
         LinkedList<Move> moveList = new LinkedList<>();
         for(int y = 7; y >= 0; y--){
             for(int x = 0; x < 8; x++){
@@ -22,6 +33,67 @@ public class Movement {
                 }
             }
         }
+
+        for(Move move : moveList) {
+            if(move.destination[0] == kingX && move.destination[1] == kingY) {
+                game.swapColor();
+                return true;
+            }
+        }
+
+        // Change back to correct turn
+        game.swapColor();
+        return false;
+    }
+
+    public static Game makeMove(Game game, Move move) {
+        Game updatedGame = new Game(game.board, game.state);
+
+        // Move piece to dest and clear src
+        updatedGame.board[move.destination[1]][move.destination[0]] = updatedGame.board[move.source[1]][move.source[0]];
+        updatedGame.board[move.source[1]][move.source[0]] = null;
+
+        return updatedGame;
+    }
+
+    //reading the board and calling legal moves on any white spots by passing the board
+    // and the position of the white piece
+    //legalMovesKing(), legalMovesQueen()...
+    //each should return a sublist of legal moves
+
+    public static LinkedList<Move> getMoves(Game game) {
+        if(check(game)) {
+            return getCheckMoves(game);
+        }
+
+        LinkedList<Move> moveList = new LinkedList<>();
+        for(int y = 7; y >= 0; y--){
+            for(int x = 0; x < 8; x++){
+                if (game.board[y][x] != null) {
+                    if (game.board[y][x].color == game.state.turn){
+                        moveList.addAll(legalMoves(x, y, game));
+                    }
+                }
+            }
+        }
+
+        return moveList;
+    }
+
+    public static LinkedList<Move> getCheckMoves(Game game) {
+        // Find all moves
+        LinkedList<Move> moveList = new LinkedList<>();
+        for(int y = 7; y >= 0; y--){
+            for(int x = 0; x < 8; x++){
+                if (game.board[y][x] != null) {
+                    if (game.board[y][x].color == game.state.turn){
+                        moveList.addAll(legalMoves(x, y, game));
+                    }
+                }
+            }
+        }
+        // Make all moves and if player is still in check after move is made then remove it
+        moveList.removeIf(move -> check(makeMove(game, move)));
         return moveList;
     }
 
@@ -268,8 +340,8 @@ public class Movement {
             if (game.board[y - 1][x - 2] == null) {
                 moveList.add(new Move(x, y, x - 2, y - 1));
             } else {
-                if(game.board[y - 2][x - 1].color != knightColor) {
-                    moveList.add(new Move(x, y, x - 1, y - 2));
+                if(game.board[y - 1][x - 2].color != knightColor) {
+                    moveList.add(new Move(x, y, x - 2, y - 1));
                 }
             }
         }
@@ -295,10 +367,6 @@ public class Movement {
                 if (game.board[y + lcv][x + lcv] == null) {
                     moveList.add(new Move(x, y, x + lcv, y + lcv));
                 } else {
-                    break;
-                }
-                //kill
-                if (game.board[y + lcv][x + lcv] != null) {
                     if (game.board[y + lcv][x + lcv].color != bishopColor) {
                         moveList.add(new Move(x, y, x + lcv, y + lcv));
                     }
@@ -312,10 +380,6 @@ public class Movement {
                 if (game.board[y + lcv][x - lcv] == null) {
                     moveList.add(new Move(x, y, x - lcv, y + lcv));
                 } else {
-                    break;
-                }
-                //kill
-                if (game.board[y + lcv][x - lcv] != null) {
                     if (game.board[y + lcv][x - lcv].color != bishopColor) {
                         moveList.add(new Move(x, y, x - lcv, y + lcv));
                     }
@@ -329,10 +393,6 @@ public class Movement {
                 if (game.board[y - lcv][x + lcv] == null) {
                     moveList.add(new Move(x, y, x + lcv, y - lcv));
                 } else {
-                    break;
-                }
-                //kill
-                if (game.board[y - lcv][x + lcv] != null) {
                     if (game.board[y - lcv][x + lcv].color != bishopColor) {
                         moveList.add(new Move(x, y, x + lcv, y - lcv));
                     }
@@ -346,10 +406,6 @@ public class Movement {
                 if (game.board[y - lcv][x - lcv] == null) {
                     moveList.add(new Move(x, y, x - lcv, y - lcv));
                 } else {
-                    break;
-                }
-                //kill
-                if (game.board[y - lcv][x - lcv] != null) {
                     if (game.board[y - lcv][x - lcv].color != bishopColor) {
                         moveList.add(new Move(x, y, x - lcv, y - lcv));
                     }
