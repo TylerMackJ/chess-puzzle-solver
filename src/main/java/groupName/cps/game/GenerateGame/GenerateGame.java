@@ -7,7 +7,11 @@ import groupName.cps.game.Piece;
 import java.util.Random;
 
 public class GenerateGame {
-    public static Game generateGame(int n) {
+    public static Game generateGame(int movesToWin) {
+        if (movesToWin <= 0) {
+            return null;
+        }
+
         Random rand = new Random();
 
         boolean done = false;
@@ -19,13 +23,13 @@ public class GenerateGame {
         game.board[rand.nextInt() % 8][rand.nextInt() % 8] = bK;
         int wKX = rand.nextInt() % 8;
         int wKY = rand.nextInt() % 8;
-        while(game.board[wKY][wKX] != null) {
+        while (game.board[wKY][wKX] != null) {
             wKX = rand.nextInt() % 8;
             wKY = rand.nextInt() % 8;
         }
         game.board[wKY][wKX] = wK;
 
-        while(true) {
+        while (true) {
             Piece.Type type;
             switch (rand.nextInt() % 5) {
                 case 0:
@@ -51,12 +55,11 @@ public class GenerateGame {
                 color = Piece.Color.WHITE;
             }
 
-
             Piece p = new Piece(type, color);
 
             game.board[rand.nextInt() % 8][rand.nextInt() % 8] = p;
 
-            if(BruteForce.chooseMove(game, n) != null) {
+            if (BruteForce.chooseMove(game, movesToWin) != null) {
                 return game;
             }
         }
