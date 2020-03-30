@@ -20,18 +20,18 @@ public class GenerateGame {
         Piece bK = new Piece(Piece.Type.KING, Piece.Color.BLACK);
         Piece wK = new Piece(Piece.Type.KING, Piece.Color.WHITE);
 
-        game.board[rand.nextInt() % 8][rand.nextInt() % 8] = bK;
-        int wKX = rand.nextInt() % 8;
-        int wKY = rand.nextInt() % 8;
+        game.board[rand.nextInt(8)][rand.nextInt(8)] = bK;
+        int wKX = rand.nextInt(8);
+        int wKY = rand.nextInt(8);
         while (game.board[wKY][wKX] != null) {
-            wKX = rand.nextInt() % 8;
-            wKY = rand.nextInt() % 8;
+            wKX = rand.nextInt(8);
+            wKY = rand.nextInt(8);
         }
         game.board[wKY][wKX] = wK;
 
         while (true) {
             Piece.Type type;
-            switch (rand.nextInt() % 5) {
+            switch (rand.nextInt(5)) {
                 case 0:
                     type = Piece.Type.QUEEN;
                     break;
@@ -49,7 +49,7 @@ public class GenerateGame {
             }
 
             Piece.Color color;
-            if (rand.nextInt() % 2 == 1) {
+            if (rand.nextInt(2) == 1) {
                 color = Piece.Color.BLACK;
             } else {
                 color = Piece.Color.WHITE;
@@ -57,7 +57,7 @@ public class GenerateGame {
 
             Piece p = new Piece(type, color);
 
-            game.board[rand.nextInt() % 8][rand.nextInt() % 8] = p;
+            game.board[rand.nextInt(8)][rand.nextInt(8)] = p;
 
             if (BruteForce.chooseMove(game, movesToWin) != null) {
                 return game;
