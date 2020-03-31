@@ -11,8 +11,14 @@ import static org.junit.jupiter.api.Assertions.*;
 class GenerateGameTest {
 
     @Test
-    void generate3MoveGame() {
-        Game g = GenerateGame.generateGame(3);
-        assertNotEquals(null, BruteForce.chooseMove(g, 3));
+    void generate1MoveGame() {
+        Game g = GenerateGame.generateGame(1);
+        assertNotEquals(null, BruteForce.chooseMove(g, 1));
+    }
+
+    @Test
+    void generateNeg1MoveGame() {
+        Game g = GenerateGame.generateGame(-1);
+        assertNull(g);
     }
 }
