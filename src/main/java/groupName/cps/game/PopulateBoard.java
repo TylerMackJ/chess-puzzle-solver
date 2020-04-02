@@ -4,7 +4,6 @@ public class PopulateBoard {
     public Piece[][] board;
     public String pieceLocations;
 
-
     public PopulateBoard(String pieceLocations) {
         this.board = new Piece[8][8];
         for(int x = 0; x < board[0].length; x++) {
@@ -24,7 +23,7 @@ public class PopulateBoard {
         int currentX = 0;
         int currentY = 0;
 
-        for (int lcv=0; lcv<locationArray.length; lcv++) {
+        for(int lcv=0; lcv<locationArray.length; lcv++) {
             // Separate the element into a character array
             char[] currentCharacters = locationArray[lcv].toCharArray();
 
@@ -62,8 +61,10 @@ public class PopulateBoard {
             // Get the Y value
             currentY =  Integer.parseInt(String.valueOf(currentCharacters[3]));
 
-            // Place the piece in the desired location on the board
-            this.board[currentY][currentX] = currentPiece;
+            if(currentX < this.board[0].length && currentX >= 0 && currentY < this.board.length && currentY >=0) {
+                // Place the piece in the desired location on the board
+                this.board[currentY][currentX] = currentPiece;
+            }
         }
 
         return this.board;
