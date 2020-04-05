@@ -10,7 +10,7 @@ import org.junit.jupiter.api.TestInstance;
 import static org.junit.jupiter.api.Assertions.*;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-class BruteForceTest {
+class BruteForceTestStructural {
 
     @BeforeEach
     void setUp() {
