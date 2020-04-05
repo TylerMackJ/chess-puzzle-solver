@@ -22,7 +22,7 @@ class BruteForceTest {
     }
 
     @Test
-    void solvePuzzleIn1() {
+    void solvePuzzleValid() {
         String puzzle = "BR16 WK55 WR60 BK75";
         Game game = new Game(new PopulateBoard(puzzle).getPopulatedBoard());
         BruteForce.solvePuzzle(puzzle, 1);
@@ -30,11 +30,11 @@ class BruteForceTest {
     }
 
     @Test
-    void solvePuzzleIn2() {
+    void solvePuzzleInvalid() {
         String puzzle = "BQ60 WR21 WP02 BP52 WK72 WQ53 BP73 BR64 BP65 BK75";
         Game game = new Game(new PopulateBoard(puzzle).getPopulatedBoard());
-        BruteForce.solvePuzzle(puzzle, 2);
-        assertEquals(true,BruteForce.win(game,2));
+        BruteForce.solvePuzzle(puzzle, 1);
+        assertEquals(false,BruteForce.win(game,1));
     }
 
 
