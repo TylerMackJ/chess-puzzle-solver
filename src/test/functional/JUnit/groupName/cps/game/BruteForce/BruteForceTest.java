@@ -30,6 +30,14 @@ class BruteForceTest {
     }
 
     @Test
+    void solvePuzzlevalidTwo() {
+        String puzzle = "BQ60 WR21 WP02 BP52 WK72 WQ53 BP73 BR64 BP65 BK75";
+        Game game = new Game(new PopulateBoard(puzzle).getPopulatedBoard());
+        BruteForce.solvePuzzle(puzzle, 2);
+        assertEquals(true,BruteForce.win(game,2));
+    }
+
+    @Test
     void solvePuzzleInvalid() {
         String puzzle = "BQ60 WR21 WP02 BP52 WK72 WQ53 BP73 BR64 BP65 BK75";
         Game game = new Game(new PopulateBoard(puzzle).getPopulatedBoard());
