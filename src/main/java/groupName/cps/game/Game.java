@@ -1,7 +1,5 @@
 package groupName.cps.game;
 
-import java.util.Arrays;
-
 public class Game {
     public Piece[][] board;
     public State state;
@@ -31,7 +29,7 @@ public class Game {
                 }
             }
         }
-        this.state = new State(state.check, state.turn);
+        this.state = new State(check, color);
     }
     //pass it a board and it creates a game with that board and a default state
     public Game(Piece[][] clone) {
