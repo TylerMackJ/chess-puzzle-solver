@@ -107,9 +107,8 @@ public class Movement {
             case KNIGHT: return legalMovesKnight(x, y, game);
             case BISHOP: return legalMovesBishop(x, y, game);
             case ROOK: return legalMovesRook(x, y, game);
-            case PAWN: return legalMovesPawn(x, y, game);
+            default: return legalMovesPawn(x, y, game);
         }
-        return new LinkedList<>();
     }
 
     private static LinkedList<Move> legalMovesPawn(int x, int y, Game game){

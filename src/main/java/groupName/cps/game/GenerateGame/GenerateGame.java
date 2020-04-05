@@ -14,22 +14,24 @@ public class GenerateGame {
 
         Random rand = new Random();
 
-        boolean done = false;
         Game game = new Game();
 
         Piece bK = new Piece(Piece.Type.KING, Piece.Color.BLACK);
         Piece wK = new Piece(Piece.Type.KING, Piece.Color.WHITE);
 
         game.board[rand.nextInt(8)][rand.nextInt(8)] = bK;
-        int wKX = rand.nextInt(8);
-        int wKY = rand.nextInt(8);
-        while (game.board[wKY][wKX] != null) {
+        int wKX;
+        int wKY;
+        do {
             wKX = rand.nextInt(8);
             wKY = rand.nextInt(8);
-        }
+        } while (game.board[wKY][wKX] != null);
         game.board[wKY][wKX] = wK;
 
+        int itr = 0;
+
         while (true) {
+            itr++;
             Piece.Type type;
             switch (rand.nextInt(5)) {
                 case 0:
@@ -57,10 +59,19 @@ public class GenerateGame {
 
             Piece p = new Piece(type, color);
 
-            game.board[rand.nextInt(8)][rand.nextInt(8)] = p;
+            int x;
+            int y;
+            do {
+                x = rand.nextInt(8);
+                y = rand.nextInt(8);
+            } while (game.board[x][y] != null);
+            game.board[x][y] = p;
 
             if (BruteForce.chooseMove(game, movesToWin) != null) {
                 return game;
+            }
+            if (itr > 10) {
+                return generateGame(movesToWin);
             }
         }
     }
