@@ -25,6 +25,7 @@ class StateTest {
         System.out.println("StateTest getState1()");
         State s1 = new State();
         assertNotEquals(true,s1);
+        System.out.println(s1);
     }
 
     @Test
@@ -32,5 +33,6 @@ class StateTest {
         System.out.println("StateTest getState2()");
         State s2 = new State(false, Piece.Color.WHITE);
         assertNotEquals(true,s2);
+        System.out.println(s2);
     }
 }

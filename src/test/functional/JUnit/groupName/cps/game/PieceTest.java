@@ -14,6 +14,8 @@ class PieceTest {
     String pieceString3 = "BB";
     String pieceString4 = "WR";
     String pieceString5 = "WP";
+    String pieceString6 = "WK";
+    String pieceString7 = "BQ";
 
 
 
@@ -24,6 +26,9 @@ class PieceTest {
         this.pieceInstance = new Piece(pieceString3);
         this.pieceInstance = new Piece(pieceString4);
         this.pieceInstance = new Piece(pieceString5);
+        this.pieceInstance = new Piece(pieceString6);
+        this.pieceInstance = new Piece(pieceString7);
+
     }
 
     @AfterEach
@@ -35,19 +40,8 @@ class PieceTest {
     void testToString() {
         System.out.println("testToString()");
         Piece piece = new Piece(Piece.Type.KING, Piece.Color.WHITE);
-        String pieceString = "WK";
-        this.pieceInstance = new Piece(pieceString);
         piece.toString();
         assertNotEquals(true,piece.toString());
-    }
-
-    @Test
-    void testToString1() {
-        System.out.println("testToString1()");
-        Piece piece1 = new Piece(Piece.Type.QUEEN, Piece.Color.BLACK);
-        String pieceString = "Qk";
-        piece1.toString();
-        assertNotEquals(false, piece1.toString());
     }
 
 }

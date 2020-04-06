@@ -55,8 +55,8 @@ class GameTest {
     }
 
     @Test
-    void pieceAttributes(){
-        System.out.println("GameTest: pieceAttributes()");
+    void gameAttributes(){
+        System.out.println("GameTest: gameAttributes()");
         board[1][1] = new Piece(Piece.Type.KING, Piece.Color.WHITE);
 
         Game g = new Game(board);
@@ -65,8 +65,8 @@ class GameTest {
     }
 
     @Test
-    void pieceAttributes1(){
-        System.out.println("GameTest: pieceAttributes1()");
+    void gameAttributes1(){
+        System.out.println("GameTest: gameAttributes1()");
         board[1][1] = new Piece(Piece.Type.KING, Piece.Color.WHITE);
 
         Game g = new Game(board,state);
@@ -75,11 +75,21 @@ class GameTest {
     }
 
     @Test
-    void pieceAttributes2(){
-        System.out.println("GameTest: pieceAttributes2()");
+    void gameAttributes2(){
+        System.out.println("GameTest: gameAttributes2()");
         board[1][1] = new Piece(Piece.Type.KING, Piece.Color.WHITE);
 
         Game g = new Game(board,true, Piece.Color.WHITE);
+
+
+        assertNotNull(g);
+    }
+
+    @Test
+    void gameAttributes3(){
+        System.out.println("GameTest: gameAttributes3()");
+        Game g = new Game();
+
 
         assertNotNull(g);
     }
@@ -100,7 +110,7 @@ class GameTest {
 
     @Test
     void swapColor1() {
-        System.out.println("GameTest swapColor()");
+        System.out.println("GameTest swapColor1()");
         Game g = new Game();
         g.swapColor();
         g.swapColor();
@@ -108,30 +118,13 @@ class GameTest {
         assertEquals(Piece.Color.WHITE, g.state.turn);
 
     }
-
-        /* FAILED PARTITON
-    @Test
-    void swapColor1() {
-        System.out.println("GameTest swapColor()");
-        Game g = new Game();
-        g.swapColor();
-
-        assertEquals(Piece.Color.WHITE, g.state.turn);
-
-    }
-*/
-
-
-
-
-
-
 
 
     @Test
     void testToString() {
         System.out.println("GameTest testToString()");
         Game g = new Game();
+        System.out.println(g.toString());
         assertNotNull(g.toString());
 
     }
