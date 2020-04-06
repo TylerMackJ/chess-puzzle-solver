@@ -23,17 +23,22 @@ class GameTestStruct {
 
     Piece[][] clone;
 
+
+
     @BeforeEach
     void setUp() {
         System.out.println(" * GameTest: setUp()\n");
         this.board = new Piece[8][8];
         this.state = new State(true, Piece.Color.WHITE);
-        this.game = new Game(board, state);
+        this.game = new Game(this.board, this.state);
 
+        this.game1 = new Game(this.board);
 
-        this.game1 = new Game(board);
+        this.game2 = new Game(this.board, true, Piece.Color.WHITE);
 
         this.game3 = new Game();
+
+
     }
 
     @AfterEach
@@ -41,17 +46,95 @@ class GameTestStruct {
         System.out.println(" * GameTest: tearDown()\n");
         this.state = null;
         this.board = null;
+        this.board2 = null;
         this.game = null;
         this.game1 = null;
         this.game2 = null;
-        this.board2 = null;
+        this.game3 = null;
+
     }
+
+    @Test
+    void pieceAttributes(){
+        System.out.println("GameTest: pieceAttributes()");
+        board[1][1] = new Piece(Piece.Type.KING, Piece.Color.WHITE);
+
+        Game g = new Game(board);
+
+        assertNotNull(g);
+    }
+
+    @Test
+    void pieceAttributes1(){
+        System.out.println("GameTest: pieceAttributes1()");
+        board[1][1] = new Piece(Piece.Type.KING, Piece.Color.WHITE);
+
+        Game g = new Game(board,state);
+
+        assertNotNull(g);
+    }
+
+    @Test
+    void pieceAttributes2(){
+        System.out.println("GameTest: pieceAttributes2()");
+        board[1][1] = new Piece(Piece.Type.KING, Piece.Color.WHITE);
+
+        Game g = new Game(board,true, Piece.Color.WHITE);
+
+        assertNotNull(g);
+    }
+
+
+
 
     @Test
     void swapColor() {
+        System.out.println("GameTest swapColor()");
+        Game g = new Game();
+        g.swapColor();
+
+        assertEquals(Piece.Color.BLACK, g.state.turn);
+
     }
+
+
+    @Test
+    void swapColor1() {
+        System.out.println("GameTest swapColor()");
+        Game g = new Game();
+        g.swapColor();
+        g.swapColor();
+
+        assertEquals(Piece.Color.WHITE, g.state.turn);
+
+    }
+
+        /* FAILED PARTITON
+    @Test
+    void swapColor1() {
+        System.out.println("GameTest swapColor()");
+        Game g = new Game();
+        g.swapColor();
+
+        assertEquals(Piece.Color.WHITE, g.state.turn);
+
+    }
+*/
+
+
+
+
+
+
+
 
     @Test
     void testToString() {
+        System.out.println("GameTest testToString()");
+        Game g = new Game();
+        assertNotNull(g.toString());
+
     }
+
+
 }
