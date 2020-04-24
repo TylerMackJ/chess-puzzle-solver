@@ -1,23 +1,24 @@
 package groupName.cps.game;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class PopulateBoard {
-    public Piece[][] board;
+//    public Piece[][] board;
     public String pieceLocations;
 
-    public PopulateBoard(String pieceLocations) {
-        this.board = new Piece[8][8];
-        for(int x = 0; x < board[0].length; x++) {
-            for(int y = 0; y < board.length; y++) {
-                board[y][x] = null;
-            }
-        }
+    public PopulateBoard() {}
 
+    public PopulateBoard(String pieceLocations) {
         this.pieceLocations = pieceLocations;
     }
 
     public Piece[][] getPopulatedBoard() {
         // Separate the pieceLocations String into a String array
         String[] locationArray = this.pieceLocations.split(" ");
+
+        Piece[][] board = this.prepareBoard();
+
         Piece.Color currentColor = null;
         Piece.Type currentType = null;
         int currentX = 0;
@@ -61,13 +62,23 @@ public class PopulateBoard {
             // Get the Y value
             currentY =  Integer.parseInt(String.valueOf(currentCharacters[3]));
 
-            if(currentX < this.board[0].length && currentX >= 0 && currentY < this.board.length && currentY >=0) {
+            if(currentX < board[0].length && currentX >= 0 && currentY < board.length && currentY >=0) {
                 // Place the piece in the desired location on the board
-                this.board[currentY][currentX] = currentPiece;
+                board[currentY][currentX] = currentPiece;
             }
         }
 
-        return this.board;
+        return board;
+    }
+
+    private Piece[][] prepareBoard() {
+        Piece[][] board = new Piece[8][8];
+        for(int x = 0; x < board[0].length; x++) {
+            for(int y = 0; y < board.length; y++) {
+                board[y][x] = null;
+            }
+        }
+        return board;
     }
 }
 
