@@ -1,5 +1,6 @@
 
 package com.example.demo;
+import groupName.cps.game.BruteForce.BruteForce;
 import groupName.cps.game.Game;
 import groupName.cps.game.Movement.Movement;
 import org.springframework.boot.SpringApplication;
@@ -58,7 +59,14 @@ public class DemoApplication {
 			this.winningMoves = Movement.getMoves(this.gameInstance);
 		}
 
-		return "We doin Aight.";
+		int i = 1;
+		while(!BruteForce.win(this.gameInstance, i)) {i++;}
+
+		StringBuilder movesToWin = new StringBuilder();
+		for(Move mv : BruteForce.solvePuzzle(this.gameInstance, i))
+			movesToWin.append(mv.toString() + "\n");
+
+		return movesToWin.toString();
 	}
 
 	//POST new board
