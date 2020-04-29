@@ -11,13 +11,15 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class BruteForce {
-    public static void solvePuzzle(String puzzle, int n) {
+    public static LinkedList<Move> solvePuzzle(String puzzle, int n) {
         Game game = new Game(new PopulateBoard(puzzle).getPopulatedBoard());
+        LinkedList<Move> winningMoves = new LinkedList<Move>();
 
         for(; n > 0; n--) {
             Move mv = BruteForce.chooseMove(game, n);
             if(mv == null) { break; }
             System.out.println(mv);
+            winningMoves.add(mv);
             game = Movement.makeMove(game, mv);
             game.swapColor();
             LinkedList<Move> moveList = Movement.getMoves(game);
@@ -26,6 +28,27 @@ public class BruteForce {
             }
             game.swapColor();
         }
+        return winningMoves;
+    }
+
+    public static LinkedList<Move> solvePuzzle(Game g, int n) {
+        Game game = new Game(g.board, g.state);
+        LinkedList<Move> winningMoves = new LinkedList<Move>();
+
+        for(; n > 0; n--) {
+            Move mv = BruteForce.chooseMove(game, n);
+            if(mv == null) { break; }
+            System.out.println(mv);
+            winningMoves.add(mv);
+            game = Movement.makeMove(game, mv);
+            game.swapColor();
+            LinkedList<Move> moveList = Movement.getMoves(game);
+            if(!moveList.isEmpty()) {
+                game = Movement.makeMove(game, moveList.get(0));
+            }
+            game.swapColor();
+        }
+        return winningMoves;
     }
 
     public static boolean win(Game game, int n) {
