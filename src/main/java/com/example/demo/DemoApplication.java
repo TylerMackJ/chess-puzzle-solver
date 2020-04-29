@@ -81,9 +81,8 @@ public class DemoApplication {
 		return new ResponseEntity<PopulateBoard>(newBoard, HttpStatus.OK);
 	}
 
-	/*
 	@PutMapping(path="/win_game/add_piece", consumes = "application/json", produces = "application/json")
-	public ResponseEntity<Piece[][]> putBoard(@Valid @ResponseBody PieceLocation pieceLocation) {
+	public ResponseEntity<Piece[][]> putBoard(@Valid @RequestBody PieceLocation pieceLocation) {
 		if(this.gameInstance != null) {
 			this.gameInstance.board[pieceLocation.getLocation()[0]][pieceLocation.getLocation()[1]] = pieceLocation.getPiece();
 			return new ResponseEntity<Piece[][]>(this.gameInstance.board, HttpStatus.OK);
@@ -91,7 +90,6 @@ public class DemoApplication {
 			return new ResponseEntity<Piece[][]>(new Piece[0][0], HttpStatus.FAILED_DEPENDENCY);
 		}
 	}
-	 */
 
 	@DeleteMapping("/win_game/delete_board")
 	public String deleteBoard() {
