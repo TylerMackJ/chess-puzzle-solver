@@ -132,9 +132,9 @@ public class DemoApplication {
 		}
 	}
 
-	//PUT 
-	@PutMapping(path = "/generate_game/enter_moves", consumes = "application/json", produces = "application/json")
-	public ResponseEntity<Integer> setBoard(@RequestBody() MoveCount mc) {
+	//PUT
+	@PutMapping(path = "/generate_game/add_moves", consumes = "application/json", produces = "application/json")
+	public ResponseEntity<Integer> putBoard(@RequestBody() MoveCount mc) {
 
 		if (this.moveCount == -1) {
 
@@ -146,4 +146,6 @@ public class DemoApplication {
 		}
 
 	}
+
+
 }
