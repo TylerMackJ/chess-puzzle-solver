@@ -56,6 +56,14 @@ some of the routes in the browser if you go to http://localhost:8080/.
 * /
 * /get_status
 * /init_board
+* /win_game
+* /win_game/init_board
+* /win_game/add_piece
+* /win_game/delete_board
+* /generate_game
+* /generate_game/enter_moves
+* /generate_game/add_moves
+* /generate_game/delete_moves
 
 **/**
 
@@ -189,4 +197,62 @@ Object with a populated board.
         ]
     ]
 }
+
+**/win_game**
+
+Request Type: GET
+
+Expected Input: NONE
+
+Output: Gives you the number of moves to win, or tells you to initialize the board.
+
+**/win_game/add_piece**
+
+Request Type: PUT
+
+Expected Input: A piece, color anc position
+
+Output: 
+
+**/win_game/delete_board**
+
+Request Type: DELETE
+
+Expected Input: NONE
+
+Output: "The board was deleted"
+
+**/generate_game**
+
+Request Type: GET
+
+Expected Input: NONE
+
+Output:
+
+**/generate_game/enter_moves**
+
+Request Type: POST
+
+Expected Input:
+
+Output:
+
+**/generate_game/add_moves**
+
+Request Type: PUT
+
+Expected Input: INTEGER
+
+Output:
+
+**/generate_game/delete_moves**
+
+Request Type: DELETE
+
+Expected Input: NONE
+
+Output: "Number of moves reset to -1" or "You need to post first" if it's not already -1
+
+
 ```
