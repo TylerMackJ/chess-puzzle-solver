@@ -4,7 +4,9 @@ import groupName.cps.game.BruteForce.BruteForce;
 import groupName.cps.game.Game;
 import groupName.cps.game.Movement.Movement;
 import groupName.cps.game.Rest.PieceLocation;
+import groupName.cps.game.Rest.MoveCount;
 import org.springframework.boot.SpringApplication;
+import groupName.cps.game.GenerateGame.GenerateGame;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,10 +24,13 @@ import java.util.LinkedList;
 @RestController
 public class DemoApplication {
 
+	int moveCount = -1;
 	String name;
 	Game gameInstance;
 	Piece[][] board;
 	LinkedList<Move> winningMoves;
+
+	GenerateGame generateInstance;
 
 	public static void main(String[] args) {
 		SpringApplication.run(DemoApplication.class, args);
@@ -97,4 +102,37 @@ public class DemoApplication {
 
 		return "The board was deleted!";
 	}
+
+
+
+
+
+//Generate Game
+//the get service should be telling you how to post the number of moves or it should return the generated game
+
+
+	//GET
+	@GetMapping("/generate_game")
+	public String getInfo() {
+		if(this.moveCount == -1) {
+			return "To see on how to post the number of moves, go to this link:http://localhost:8080/generate_game/enter_moves ";
+		}
+		return Integer.toString(this.moveCount);
+
+	}
+
+	//POST new board
+	@PostMapping(path="/generate_game/enter_moves", consumes = "application/json", produces = "application/json")
+	public ResponseEntity<Integer> setBoard(@RequestBody() MoveCount mc) {
+
+		if(this.moveCount == -1) {
+			this.moveCount = mc.moveCount;
+			return new ResponseEntity<Integer>(mc.moveCount, HttpStatus.OK);
+		}
+		else{
+			return new ResponseEntity<Integer>(mc.moveCount, HttpStatus.FAILED_DEPENDENCY);
+		}
+	}
+
+
 }
