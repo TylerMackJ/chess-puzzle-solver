@@ -147,5 +147,12 @@ public class DemoApplication {
 
 	}
 
-
+	@DeleteMapping("/generate_game/delete_moves")
+	public String deleteMoves() {
+		if(this.moveCount != -1){
+			this.moveCount = -1;
+			return "Number of moves reset to -1";}
+		else
+			return "You need to post first!";
+	}
 }
