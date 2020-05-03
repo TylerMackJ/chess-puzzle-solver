@@ -210,7 +210,7 @@ Output: Gives you the number of moves to win, or tells you to initialize the boa
 
 Request Type: PUT
 
-Expected Input: A piece, color anc position
+Expected Input: A piece, color and position
 
 Output: 
 
