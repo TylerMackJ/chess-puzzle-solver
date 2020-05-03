@@ -54,16 +54,8 @@ some of the routes in the browser if you go to http://localhost:8080/.
 
 ### Routes
 * /
-* /get_status
-* /init_board
 * /win_game
-* /win_game/init_board
-* /win_game/add_piece
-* /win_game/delete_board
 * /generate_game
-* /generate_game/enter_moves
-* /generate_game/add_moves
-* /generate_game/delete_moves
 
 **/**
 
@@ -73,186 +65,82 @@ Expected Input: NONE
 
 Output: Shows a nice little greeting.
 
-```
-Welcome to our chess game!
-```
-
-**/get_status**
-
-Request Type: GET
+**GET /win_game**
 
 Expected Input: NONE
 
-Output: Shows your current status in the game as well as the moves to win
-given your current board.
+Output: Moves to win a puzzle, or a message saying to POST first.
 
-```
-Waiting for a board configuration... Send one to http://localhost:8080/init_board
-```
+**POST /win_game**
 
-**/init_board**
+Expected Input: 
 
-Request Type: POST
-
-Expected Input: PopulateBoard Serialized Object
-
-```
+```json
 {
-    "pieceLocations": "WP33 BP23"
+  "pieceLocations": "BQ30 WP22 WP04 WB44 WK54 BP74 BK75 WR26"
 }
 ```
 
-Output: Returns a serialized version of the same Serialized PopulateBoard
-Object with a populated board.
+You can change the "BQ30 WP22 WP04 WB44 WK54 BP74 BK75 WR26" to which ever puzzle you would like to solve.
 
-```
-{
-    "pieceLocations": "WP33 BP23",
-    "populatedBoard": [
-        [
-            null,
-            null,
-            null,
-            null,
-            null,
-            null,
-            null,
-            null
-        ],
-        [
-            null,
-            null,
-            null,
-            null,
-            null,
-            null,
-            null,
-            null
-        ],
-        [
-            null,
-            null,
-            null,
-            null,
-            null,
-            null,
-            null,
-            null
-        ],
-        [
-            null,
-            null,
-            {
-                "type": "PAWN",
-                "color": "BLACK"
-            },
-            {
-                "type": "PAWN",
-                "color": "WHITE"
-            },
-            null,
-            null,
-            null,
-            null
-        ],
-        [
-            null,
-            null,
-            null,
-            null,
-            null,
-            null,
-            null,
-            null
-        ],
-        [
-            null,
-            null,
-            null,
-            null,
-            null,
-            null,
-            null,
-            null
-        ],
-        [
-            null,
-            null,
-            null,
-            null,
-            null,
-            null,
-            null,
-            null
-        ],
-        [
-            null,
-            null,
-            null,
-            null,
-            null,
-            null,
-            null,
-            null
-        ]
-    ]
-}
+Output: A JSON representation of the resultant board.
 
-**/win_game**
-
-Request Type: GET
-
-Expected Input: NONE
-
-Output: Gives you the number of moves to win, or tells you to initialize the board.
-
-**/win_game/add_piece**
-
-Request Type: PUT
-
-Expected Input: A piece, color and position
-
-Output: 
-
-**/win_game/delete_board**
-
-Request Type: DELETE
-
-Expected Input: NONE
-
-Output: "The board was deleted"
-
-**/generate_game**
-
-Request Type: GET
-
-Expected Input: NONE
-
-Output:
-
-**/generate_game/enter_moves**
-
-Request Type: POST
+**PUT /win_game**
 
 Expected Input:
 
-Output:
+```json
+{
+    "pieceString": "WQ24"
+}
+```
 
-**/generate_game/add_moves**
+You can change "WQ24" to which location you would like to add the piece to.
 
-Request Type: PUT
+Output: A JSON representation of the resultant board with the new piece added.
 
-Expected Input: INTEGER
-
-Output:
-
-**/generate_game/delete_moves**
-
-Request Type: DELETE
+**DELETE /win_game**
 
 Expected Input: NONE
 
-Output: "Number of moves reset to -1" or "You need to post first" if it's not already -1
+Output: A message verifying the board was deleted.
 
+**GET /generate_game**
 
+Expected Input: NONE
+
+Output: The generated game or, a message saying to POST first.
+
+**POST /generate_game**
+
+Expected Input: 
+
+```json
+{
+  "moveCount": 2
+}
 ```
+
+You can change the 2 to which ever number of moves you want.
+
+Output: A response of the moveCount to verify it was set.
+
+**PUT /generate_game**
+
+Expected Input:
+
+```json
+{
+  "moveCount": 2
+}
+```
+
+You can change the 2 to which ever number of moves you want.
+
+Output: A response of the updated moveCount to verify it was updated.
+
+**DELETE /generate_game**
+
+Expected Input: NONE
+
+Output: A message verifying the moveCount was reset to -1.

@@ -39,25 +39,15 @@ public class DemoApplication {
 	/*Example GET Requests*/
 	@GetMapping("/")
 	public String index() {
-		return "Welcome to our chess game!";
+		return "Welcome to our chess game service! Go to either /win_game or /generate_game for our two services.";
 	}
 
-//	@GetMapping("/hello")
-//	public String hello() {
-//		return String.format("Hello %s!", this.name);
-//	}
-
-	/*Example Post Request*/
-//	@PostMapping(path = "/members", consumes = "application/json")
-//	public void setName(@RequestBody() PostRequest request) {
-//		this.name = request.getBody();
-//	}
 
 	//GET moves to win
 	@GetMapping("/win_game")
 	public String getStatus() {
 		if (this.gameInstance == null) {
-			return "Waiting for a board configuration... Send one to http://localhost:8080/win_game/init_board";
+			return "Waiting for a board configuration... Please POST to this route.";
 		}
 		if (this.gameInstance == null) {
 			this.gameInstance = new Game(this.board);
@@ -79,7 +69,7 @@ public class DemoApplication {
 	}
 
 	//POST new board
-	@PostMapping(path = "/win_game/init_board", consumes = "application/json", produces = "application/json")
+	@PostMapping(path = "/win_game", consumes = "application/json", produces = "application/json")
 	public ResponseEntity<PopulateBoard> setBoard(@RequestBody() PopulateBoard newBoard) {
 
 		this.board = newBoard.getPopulatedBoard();
@@ -88,7 +78,7 @@ public class DemoApplication {
 		return new ResponseEntity<PopulateBoard>(newBoard, HttpStatus.OK);
 	}
 
-	@PutMapping(path = "/win_game/add_piece", consumes = "application/json", produces = "application/json")
+	@PutMapping(path = "/win_game", consumes = "application/json", produces = "application/json")
 	public ResponseEntity<Piece[][]> putBoard(@Valid @RequestBody PieceLocation pieceLocation) {
 		if (this.gameInstance != null) {
 			this.gameInstance.board[pieceLocation.getLocation()[0]][pieceLocation.getLocation()[1]] = pieceLocation.getPiece();
@@ -98,7 +88,7 @@ public class DemoApplication {
 		}
 	}
 
-	@DeleteMapping("/win_game/delete_board")
+	@DeleteMapping("/win_game")
 	public String deleteBoard() {
 		this.gameInstance = null;
 
@@ -114,14 +104,14 @@ public class DemoApplication {
 	@GetMapping("/generate_game")
 	public String getInfo() {
 		if (this.moveCount == -1) {
-			return "To see on how to post the number of moves, go to this link:http://localhost:8080/generate_game/enter_moves ";
+			return "Waiting for a number of moves... Please POST to this route.";
 		}
-		return Integer.toString(this.moveCount);
+		return GenerateGame.generateGame(this.moveCount).toString();
 
 	}
 
 	//POST new board
-	@PostMapping(path = "/generate_game/enter_moves", consumes = "application/json", produces = "application/json")
+	@PostMapping(path = "/generate_game", consumes = "application/json", produces = "application/json")
 	public ResponseEntity<Integer> setBoard(@RequestBody() MoveCount mc) {
 
 		if (this.moveCount == -1) {
@@ -133,7 +123,7 @@ public class DemoApplication {
 	}
 
 	//PUT
-	@PutMapping(path = "/generate_game/add_moves", consumes = "application/json", produces = "application/json")
+	@PutMapping(path = "/generate_game", consumes = "application/json", produces = "application/json")
 	public ResponseEntity<Integer> putBoard(@RequestBody() MoveCount mc) {
 
 		if (this.moveCount == -1) {
@@ -147,12 +137,12 @@ public class DemoApplication {
 
 	}
 
-	@DeleteMapping("/generate_game/delete_moves")
+	@DeleteMapping("/generate_game")
 	public String deleteMoves() {
 		if(this.moveCount != -1){
 			this.moveCount = -1;
 			return "Number of moves reset to -1";}
 		else
-			return "You need to post first!";
+			return "You need to POST first!";
 	}
 }
