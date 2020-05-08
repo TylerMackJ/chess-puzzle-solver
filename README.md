@@ -27,6 +27,8 @@ We do not have any installed packages for our project so it should be a
 
 ### Running
 
+#### Spring Deployment
+
 To run the Chess Solver, type the following command:
 
 ```
@@ -44,6 +46,34 @@ If everything runs properly, you should see this in your terminal.
  =========|_|==============|___/=/_/_/_/
  :: Spring Boot ::        (v2.2.6.RELEASE)
 
+```
+
+#### Docker Deployment
+
+To run the Chess Solver, type the following command:
+
+```
+bash start_local_project.sh
+```
+
+This shell script builds and runs the Docker container corresponding
+to the Dockerfile in this repository. 
+
+Another shell script is ran after container deployment that
+checks the service is up by checking for 200 or 403 status codes
+and times out after 2 minutes.
+
+If everything runs properly, you should see this in your terminal.
+
+```
+Service is online
+```
+
+If the spring-boot project takes too long to start up, or the connection
+can't be made, you will see the following in your terminal.
+
+```
+Health check timed out. Service is offline.
 ```
 
 Once the API is up on running, like shown above, you can start making requests
@@ -144,3 +174,4 @@ Output: A response of the updated moveCount to verify it was updated.
 Expected Input: NONE
 
 Output: A message verifying the moveCount was reset to -1.
+
