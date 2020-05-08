@@ -9,16 +9,17 @@ function check_server() {
 
 function timeout_monitor() {
   # Start the the timeout monitor
-  sleep "$Timeout"
+  sleep $Timeout
   echo "Health check timed out. Service is offline."
-  kill "$1"
+  kill -9 $$
+  exit 0
 }
 
 # Initial server check
 check_server
 
 # Start timeout monitor
-timeout_monitor "$$" &
+timeout_monitor &
 
 # Get the PID of the timeout monitor
 Timeout_monitor_pid=$!
@@ -31,7 +32,7 @@ done
 
 # Service is online
 echo "Service is online"
+
+kill -9 $Timeout_monitor_pid
+
 exit 0
-
-kill "$Timeout_monitor_pid"
-
